@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 Not Found</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: "Courier New", monospace;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 60px;
+        }
+
+        p {
+            font-size: 24px;
+        }
+
+        .glitch {
+            color: #0f0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #f00;
+            animation: glitch1 0.3s infinite alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00f;
+            animation: glitch2 0.3s infinite alternate-reverse;
+        }
+
+        @keyframes glitch1 {
+            0% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(0.9) translate(-5px);
+            }
+            40% {
+                transform: scale(0.9) translate(5px);
+            }
+            60% {
+                transform: scale(0.92) translate(-5px);
+            }
+            80% {
+                transform: scale(0.92) translate(5px);
+            }
+            100% {
+                transform: scale(1) translate(0);
+            }
+        }
+
+        @keyframes glitch2 {
+            0% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(0.9) translate(5px);
+            }
+            40% {
+                transform: scale(0.9) translate(-5px);
+            }
+            60% {
+                transform: scale(0.92) translate(5px);
+            }
+            80% {
+                transform: scale(0.92) translate(-5px);
+            }
+            100% {
+                transform: scale(1) translate(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="glitch" data-text="ERROR 404">ERROR 404</span></h1>
+        <p class="glitch" data-text="Page not found">Page not found</p>
+        <p class="glitch" data-text="Access Denied">Access Denied</p>
+    </div>
+</body>
+</html>
