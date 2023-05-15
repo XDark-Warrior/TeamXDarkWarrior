@@ -1,2 +1,2 @@
-# TeamXDarkWarrior.github.io
+# TeamXDarkWarrior
 Welcome to My Dark World
