@@ -120,76 +120,80 @@
             }
             80% {
                 transform: scale(0.92) translate(5px);
-            }
-            100% {
-                transform: scale(1) translate(0);
-            }
-        }
-
+}
+100% {
+transform: scale(1) translate(0);
+}
+}
         @keyframes glitch2 {
-            0% {
-                transform: scale(1);
-            }
-            20% {
-                transform: scale(0.9) translate(5px);
-            }
-            40% {
-                transform: scale(0.9) translate(-5px);
-            }
-            60% {
-                transform: scale(0.92) translate(5px);
-            }
-            80% {
-                transform: scale(0.92) translate(-5px);
-            }
-            100% {
-                transform: scale(1) translate(0);
-            }
+        0% {
+            transform: scale(1);
         }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const navLinks = document.querySelectorAll("nav ul li a");
+        20% {
+            transform: scale(0.9) translate(5px);
+        }
+        40% {
+            transform: scale(0.9) translate(-5px);
+        }
+        60% {
+            transform: scale(0.92) translate(5px);
+        }
+        80% {
+            transform: scale(0.92) translate(-5px);
+        }
+        100% {
+            transform: scale(1) translate(0);
+        }
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const navLinks = document.querySelectorAll("nav ul li a");
 
-            navLinks.forEach(function(link) {
-                link.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    const target = document.querySelector(link.getAttribute("href"));
-                    target.scrollIntoView({ behavior: "smooth" });
-                });
-            });
-
-            const glitchText = document.querySelector(".glitch[data-text='404 Error - Page Not Found']");
-            glitchText.addEventListener("click", function() {
-                window.location.href = "error.html";
+        navLinks.forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                const target = document.querySelector(link.getAttribute("href"));
+                target.scrollIntoView({ behavior: "smooth" });
             });
         });
-    </script>
+
+        const glitchText = document.querySelector(".glitch[data-text='404 Error - Page Not Found']");
+        glitchText.addEventListener("click", function() {
+            window.location.href = "error.html";
+        });
+    });
+</script>
 </head>
 <body>
     <header>
         <h1 class="glitch" data-text="Welcome to Team XDark Warrior">Welcome to Team XDark Warrior</h1>
     </header>
-
     <nav>
         <ul>
             <li><a href="#home">Home</a></li>
+            <li><a href="#feed">Feed</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-
+    
     <section id="home">
         <h2>Home</h2>
         <p>Welcome to our website! We are Team XDark Warrior.</p>
     </section>
-
+    
+    <section id="feed">
+        <h2>Feed</h2>
+        <p>This is the feed section of your website. You can display dynamic content or updates here.</p>
+    </section>
+    
     <section id="about">
         <h2>About</h2>
         <p>Hello, my name is XD Jibon Mahmud. I'm a professional web developer based in XYZ City. I have years of experience in creating websites and working with various technologies to deliver exceptional results to my clients.</p>
     </section>
-
+    
     <section id="services">
         <h2>Services</h2>
         <ul>
@@ -198,7 +202,7 @@
             <li>Python Programming</li>
         </ul>
     </section>
-
+    
     <section id="contact">
         <h2>Contact</h2>
         <p>If you have any inquiries or would like to discuss a project, feel free to reach out to me through the following channels:</p>
@@ -207,16 +211,15 @@
             <li><strong>Facebook:</strong> <a href="https://facebook.com/Second.Markzuckerberg.DWarrior" target="_blank">XD Jibon Mahmud</a></li>
         </ul>
     </section>
-
+    
     <section>
-        <h2 class="glitch" data-text="404 Error - Page Not Found">404 Error - Page Not Found</h2>
+        <h2 class="glitch" data-text="404 Error - Page Not Found">404 Error - Page Not Found
+        </h2>
         <p>Oops! The page you are looking for does not exist.</p>
         <p>Please check the URL or go back to the <a href="#home">home page</a>.</p>
-        </section>
-    
-        <footer>
-            <p>&copy; 2023 Team XDark Warrior. All rights reserved.</p>
-        </footer>
-    </body>
-    </html>
-    
+    </section>
+    <footer>
+        <p>&copy; 2023 Team XDark Warrior. All rights reserved.</p>
+    </footer>
+</body>
+</html>
