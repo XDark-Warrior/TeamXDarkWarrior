@@ -120,50 +120,62 @@
             }
             80% {
                 transform: scale(0.92) translate(5px);
-}
-100% {
-transform: scale(1) translate(0);
-}
-}
+            }
+            100% {
+                transform: scale(1) translate(0);
+            }
+        }
         @keyframes glitch2 {
-        0% {
-            transform: scale(1);
+            0% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(0.9) translate(5px);
+            }
+            40% {
+                transform: scale(0.9) translate(-5px);
+            }
+            60% {
+                transform: scale(0.92) translate(5px);
+            }
+            80% {
+                transform: scale(0.92) translate(-5px);
+            }
+            100% {
+                transform: scale(1) translate(0);
+            }
         }
-        20% {
-            transform: scale(0.9) translate(5px);
-        }
-        40% {
-            transform: scale(0.9) translate(-5px);
-        }
-        60% {
-            transform: scale(0.92) translate(5px);
-        }
-        80% {
-            transform: scale(0.92) translate(-5px);
-        }
-        100% {
-            transform: scale(1) translate(0);
-        }
-    }
-</style>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const navLinks = document.querySelectorAll("nav ul li a");
 
-        navLinks.forEach(function(link) {
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                const target = document.querySelector(link.getAttribute("href"));
-                target.scrollIntoView({ behavior: "smooth" });
+        /* Small social icons */
+        .social-icon {
+            width: 30px;
+            height: 17px;
+            margin-right: 9px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navLinks = document.querySelectorAll("nav ul li a");
+
+            navLinks.forEach(function(link) {
+                link.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    const target = document.querySelector(link.getAttribute("href"));
+                    target.scrollIntoView({ behavior: "smooth" });
+
+                    // Check if the clicked link is the "Feed" link
+                    if (link.getAttribute("href") === "#feed") {
+                        window.location.href = "feed.html";
+                    }
+                });
+            });
+
+            const glitchText = document.querySelector(".glitch[data-text='404 Error - Page Not Found']");
+            glitchText.addEventListener("click", function() {
+                window.location.href = "error.html";
             });
         });
-
-        const glitchText = document.querySelector(".glitch[data-text='404 Error - Page Not Found']");
-        glitchText.addEventListener("click", function() {
-            window.location.href = "error.html";
-        });
-    });
-</script>
+    </script>
 </head>
 <body>
     <header>
@@ -173,8 +185,8 @@ transform: scale(1) translate(0);
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#feed">Feed</a></li>
-            <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -189,11 +201,6 @@ transform: scale(1) translate(0);
         <p>This is the feed section of your website. You can display dynamic content or updates here.</p>
     </section>
     
-    <section id="about">
-        <h2>About</h2>
-        <p>Hello, my name is XD Jibon Mahmud. I'm a professional web developer based in XYZ City. I have years of experience in creating websites and working with various technologies to deliver exceptional results to my clients.</p>
-    </section>
-    
     <section id="services">
         <h2>Services</h2>
         <ul>
@@ -203,12 +210,21 @@ transform: scale(1) translate(0);
         </ul>
     </section>
     
+    <section id="about">
+        <h2>About</h2>
+        <p>Hello, my name is XD Jibon Mahmud. I'm a professional web developer based in XYZ City. I have years of experience in creating websites and working with various technologies to deliver exceptional results to my clients.</p>
+    </section>
+    
     <section id="contact">
         <h2>Contact</h2>
         <p>If you have any inquiries or would like to discuss a project, feel free to reach out to me through the following channels:</p>
         <ul>
-            <li><strong>Email:</strong> xdarkwarrior999@proton.me</li>
-            <li><strong>Facebook:</strong> <a href="https://facebook.com/Second.Markzuckerberg.DWarrior" target="_blank">XD Jibon Mahmud</a></li>
+            <li><strong>Email:</strong> <a class="email-link" href="xdarkwarrior999@proton.me" target="_blank"><img class="social-icon" src="https://i.postimg.cc/wvhwQDxY/phone-email-icons-83025-3565934245.png" alt="Email"></a></li>
+            <li><strong>Facebook:</strong> <a href="https://facebook.com/Second.Markzuckerberg.DWarrior" target="_blank"><img class="social-icon" src="https://i.postimg.cc/kXBqf5Sh/984f500cf9de4519b02b354346eb72e0-facebook-icon-social-media-by-vexels-265304295.png" alt="Facebook"></a></li>
+            <li><strong>Telegram:</strong> <a href="https://t.me/XDJibonMahmud" target="_blank"><img class="social-icon" src="https://i.postimg.cc/BQWKGRCp/icon-telegram-clipart-3843260816.png" alt="Telegram"></a></li>
+            <li><strong>Instagram:</strong> <a href="https://instagram.com/XDJibonMahmud" target="_blank"><img class="social-icon" src="https://i.postimg.cc/K86V7G7L/instagram-round-flat-512-1888641276.png" alt="Instagram"></a></li>
+            <li><strong>Twitter:</strong> <a href="https://twitter.com/XDJibonMahmud" target="_blank"><img class="social-icon" src="https://i.postimg.cc/hvXb3xcG/twitter-PNG19-2189707432.png" alt="Twitter"></a></li>
+            <li><strong>YouTube:</strong> <a href="https://youtube.com/c/TeamXDarkWarrior" target="_blank"><img class="social-icon" src="https://i.postimg.cc/5tpB4pt0/youtube-png-3482126341.png" alt="YouTube"></a></li>
         </ul>
     </section>
     
