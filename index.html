@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook - log in or sign up</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .container h1 {
+            font-size: 24px;
+            margin: 0 0 24px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            padding: 8px;
+            width: 100%;
+        }
+        
+        .form-group select {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            padding: 8px;
+            width: 100%;
+        }
+        
+        .form-group button {
+            background-color: #1877F2;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 16px;
+            width: 100%;
+            margin-top: 16px; /* Added margin to move the button down */
+        }
+        
+        .form-group button:hover {
+            background-color: #115293;
+        }
+        
+        .toggle-button {
+            color: #1877F2;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .notification {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 4px;
+            padding: 8px 16px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .welcome-text {
+            text-align: center; /* Center align the text */
+            margin-top: 8px; /* Move the text down by one line */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.postimg.cc/y83bBh80/xdark-warrior-low-resolution-logo-color-on-transparent-background.png" alt="Logo">
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="form-group">
+            <h1>Login to Your Account</h1>
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button type="button" onclick="loginUser()">Log In</button>
+            <p class="toggle-button" onclick="toggleForm()">Create New Account</p>
+            <p class="toggle-button" onclick="showResetPasswordForm()">Forgot Password?</p>
+        </form>
+
+        <!-- Registration Form (Initially Hidden) -->
+        <form id="registerForm" class="form-group" style="display: none;">
+            <h1>Create an Account</h1>
+            <label for="registerUsername">Username</label>
+            <input type="text" id="registerUsername" placeholder="Username" minlength="6" maxlength="10" required>
+            <div style="display: flex;">
+                <div style="flex: 1; margin-right: 8px;">
+                    <label for="registerFirstName">First Name</label>
+                    <input type="text" id="registerFirstName" placeholder="First Name" required>
+                </div>
+                <div style="flex: 1; margin-left: 8px;">
+                    <label for="registerLastName">Last Name</label>
+                    <input type="text" id="registerLastName" placeholder="Last Name" required>
+                </div>
+            </div>
+            <label for="registerEmailPhone">Email or Phone Number</label>
+            <input type="text" id="registerEmailPhone" placeholder="Email or Phone Number" required>
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" placeholder="Password" minlength="6" maxlength="11" required>
+            <div style="display: flex;">
+                <div style="flex: 1; margin-right: 8px;">
+                    <label for="registerBirthday">Birthday</label>
+                    <input type="date" id="registerBirthday" required>
+                </div>
+                <div style="flex: 1; margin-left: 8px;">
+                    <label for="registerGender">Gender</label>
+                    <select id="registerGender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="welcome-text">Welcome to my dark world</div>
+            <button type="button" onclick="registerUser()">Sign Up</button>
+            <p class="toggle-button" onclick="toggleForm()">Already have an account? Log in</p>
+        </form>
+
+        <!-- Reset Password Form (Initially Hidden) -->
+        <form id="resetPasswordForm" class="form-group" style="display: none;">
+            <h1>Reset Password</h1>
+            <label for="resetUsername">Username</label>
+            <input type="text" id="resetUsername" placeholder="Username" required>
+            <label for="resetEmailPhone">Email or Phone Number</label>
+            <input type="text" id="resetEmailPhone" placeholder="Email or Phone Number" required>
+            <button type="button" onclick="resetPassword()">Reset Password</button>
+            <p class="toggle-button" onclick="toggleForm()">Back to Log In</p>
+        </form>
+
+    </div>
+
+    <div id="notificationContainer" class="notification" style="display: none;"></div>
+
+    <script>
+        const registerForm = document.getElementById("registerForm");
+        const loginForm = document.getElementById("loginForm");
+        const resetPasswordForm = document.getElementById("resetPasswordForm");
+        const toggleButton = document.getElementsByClassName("toggle-button")[0];
+        const notificationContainer = document.getElementById("notificationContainer");
+
+        let users = [];
+
+        // Check if user data exists in localStorage
+        if (localStorage.getItem("users")) {
+            users = JSON.parse(localStorage.getItem("users"));
+        }
+
+        function toggleForm() {
+            const registerForm = document.getElementById("registerForm");
+            const loginForm = document.getElementById("loginForm");
+            const resetPasswordForm = document.getElementById("resetPasswordForm");
+
+            if (registerForm.style.display === "none" && resetPasswordForm.style.display === "none") {
+            loginForm.style.display = "none";
+            resetPasswordForm.style.display = "none";
+            registerForm.style.display = "block";
+            toggleButton.innerText = "Already have an account? Log in";
+            } else if (loginForm.style.display === "none" && resetPasswordForm.style.display === "none") {
+            registerForm.style.display = "none";
+            resetPasswordForm.style.display = "none";
+            loginForm.style.display = "block";
+            toggleButton.innerText = "Create New Account";
+            } else {
+            registerForm.style.display = "none";
+            loginForm.style.display = "block";
+            resetPasswordForm.style.display = "none";
+            toggleButton.innerText = "Create New Account";
+            }
+        }
+        
+        function registerUser() {
+            const username = document.getElementById("registerUsername").value;
+            const firstName = document.getElementById("registerFirstName").value;
+            const lastName = document.getElementById("registerLastName").value;
+            const birthday = document.getElementById("registerBirthday").value;
+            const gender = document.getElementById("registerGender").value;
+            const emailPhone = document.getElementById("registerEmailPhone").value;
+            const password = document.getElementById("registerPassword").value;
+
+            if (username.length < 6 || username.length > 10) {
+                showNotification("Username must be between 6 and 10 characters long.");
+                return;
+            }
+
+            if (!validateDate(birthday)) {
+                showNotification("Please enter a valid birthday.");
+                return;
+            }
+
+            if (gender === "") {
+                showNotification("Please select your gender.");
+                return;
+            }
+
+            if (!validateEmailPhone(emailPhone)) {
+                showNotification("Please enter a valid email or phone number.");
+                return;
+            }
+
+            if (password.length < 6 || password.length > 11) {
+                showNotification("Password must be between 6 and 11 characters long.");
+                return;
+            }
+
+            if (userExists(username)) {
+                showNotification("Username already exists. Please choose a different username.");
+                return;
+            }
+
+            const user = {
+                username,
+                firstName,
+                lastName,
+                birthday,
+                gender,
+                emailPhone,
+                password
+            };
+
+            users.push(user);
+
+            // Store updated user data in localStorage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            showNotification("Registration successful! Please log in.", true);
+            clearRegistrationFields();
+            toggleForm();
+        }
+
+        function loginUser() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (!user) {
+            showNotification("Invalid username or password.");
+            return;
+            }
+
+            showNotification(`Welcome back, ${user.firstName}! You are now logged in.`, true);
+            clearLoginFields();
+
+            // Redirect to home.html
+            window.location.href = "home.html";
+        }
+
+        function resetPassword() {
+            const username = document.getElementById("resetUsername").value;
+            const emailPhone = document.getElementById("resetEmailPhone").value;
+
+            const user = users.find(u => u.username === username && u.emailPhone === emailPhone);
+
+            if (!user) {
+                showNotification("Invalid username or email/phone number combination.");
+                return;
+            }
+
+            // Generate a random password (can be modified to use a stronger algorithm)
+            const newPassword = generateRandomPassword();
+
+            // Update the user's password
+            user.password = newPassword;
+
+            // Store updated user data in localStorage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            showNotification("Password reset successful! Your new password has been sent to your email/phone.", true);
+            clearResetPasswordFields();
+            toggleForm();
+        }
+
+        function showResetPasswordForm() {
+            const registerForm = document.getElementById("registerForm");
+            const loginForm = document.getElementById("loginForm");
+            const resetPasswordForm = document.getElementById("resetPasswordForm");
+
+            registerForm.style.display = "none";
+            loginForm.style.display = "none";
+            resetPasswordForm.style.display = "block";
+            toggleButton.innerText = "Back to Log In";
+        }
+
+        function showNotification(message, success = false) {
+            notificationContainer.innerText = message;
+            notificationContainer.style.display = "block";
+
+            if (success) {
+                notificationContainer.style.backgroundColor = "#4caf50";
+            } else {
+                notificationContainer.style.backgroundColor = "#f44336";
+            }
+
+            setTimeout(function () {
+                notificationContainer.style.display = "none";
+            }, 3000);
+        }
+
+        function clearRegistrationFields() {
+            document.getElementById("registerUsername").value = "";
+            document.getElementById("registerFirstName").value = "";
+            document.getElementById("registerLastName").value = "";
+            document.getElementById("registerBirthday").value = "";
+            document.getElementById("registerGender").value = "";
+            document.getElementById("registerEmailPhone").value = "";
+            document.getElementById("registerPassword").value = "";
+        }
+
+        function clearLoginFields() {
+            document.getElementById("loginUsername").value = "";
+            document.getElementById("loginPassword").value = "";
+        }
+
+        function clearResetPasswordFields() {
+            document.getElementById("resetUsername").value = "";
+            document.getElementById("resetEmailPhone").value = "";
+        }
+
+        function validateDate(date) {
+            const pattern = /^\d{4}-\d{2}-\d{2}$/;
+            return pattern.test(date);
+        }
+
+        function validateEmailPhone(emailPhone) {
+            const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const phonePattern = /^\d{10}$/;
+            return emailPattern.test(emailPhone) || phonePattern.test(emailPhone);
+        }
+
+        function userExists(username) {
+            return users.some(user => user.username === username);
+        }
+
+        function generateRandomPassword() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let password = "";
+            for (let i = 0; i < 8; i++) {
+                const index = Math.floor(Math.random() * characters.length);
+                password += characters.charAt(index);
+            }
+            return password;
+        }
+    </script>
+</body>
+</html>
